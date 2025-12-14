@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MLU-Explain: NLP Visual Study Cards</title>
+    <link rel="icon" href="./assets/mlu_robot.png" />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <main class="nlp-page">
+      <section class="nlp-hero">
+        <div class="nlp-hero__text">
+          <p class="section-segue">NLP exam prep, MLU-Explain style</p>
+          <h1 class="nlp-hero__title">Visual flashcards for classic NLP ideas</h1>
+          <p class="subtitle">
+            Each card mirrors the tone of MLU-Explain: uncluttered layouts, warm accent
+            highlights, and concrete numerical walk-throughs that demystify the math.
+          </p>
+        </div>
+        <div class="nlp-hero__art">
+          <div class="nlp-ribbon">
+            <span class="token bright">N</span>
+            <span class="token bright">L</span>
+            <span class="token bright">P</span>
+            <span class="token muted">•</span>
+            <span class="token muted">VIS</span>
+            <span class="token muted">UALS</span>
+          </div>
+          <div class="nlp-hero__legend">
+            <span class="legend-swatch bright"></span>
+            <span>emphasis</span>
+            <span class="legend-swatch muted"></span>
+            <span>context</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="nlp-grid">
+        <article class="nlp-card">
+          <header>
+            <p class="card-kicker">Foundations</p>
+            <h2 class="card-title">Bag of Words (BoW)</h2>
+          </header>
+          <div class="mini-visual">
+            <div class="token muted">the</div>
+            <div class="token bright">cat</div>
+            <div class="token muted">sat</div>
+            <div class="token bright">cat</div>
+          </div>
+          <p>
+            Represent text as frequency counts of tokens. Order is ignored; vocabulary size
+            controls the feature length.
+          </p>
+          <div class="calc-panel">
+            <p class="calc-title">Example counts</p>
+            <ul>
+              <li>Sentence: “the cat sat on the cat”</li>
+              <li>Vocabulary: [the, cat, sat, on]</li>
+              <li>Vector: [the=<span class="bright">2</span>, cat=<span class="bright">2</span>, sat=1, on=1]</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="nlp-card">
+          <header>
+            <p class="card-kicker">Weighting</p>
+            <h2 class="card-title">TF–IDF</h2>
+          </header>
+          <div class="mini-visual">
+            <div class="stacked-bars">
+              <span class="bar bright" style="height: 75%"></span>
+              <span class="bar muted" style="height: 30%"></span>
+              <span class="bar muted" style="height: 20%"></span>
+            </div>
+            <div class="mini-text">
+              Common in doc? ↓
+              <br />
+              Rare in corpus? ↑
+            </div>
+          </div>
+          <p>
+            Term Frequency × Inverse Document Frequency elevates tokens that are frequent in a
+            document but rare overall.
+          </p>
+          <div class="calc-panel">
+            <p class="calc-title">Sample calculation for “ml”</p>
+            <ol>
+              <li>Term frequency (tf) in doc A: 3 occurrences / 150 tokens = <span class="bright">0.02</span></li>
+              <li>Corpus: 10 documents; “ml” appears in 2 → idf = ln(10 / 2) = ln(5) ≈ <span class="bright">1.61</span></li>
+              <li>TF–IDF: 0.02 × 1.61 ≈ <span class="bright">0.032</span></li>
+            </ol>
+          </div>
+        </article>
+
+        <article class="nlp-card">
+          <header>
+            <p class="card-kicker">Distributional meaning</p>
+            <h2 class="card-title">Word2Vec</h2>
+          </header>
+          <div class="mini-visual">
+            <div class="vector-row">
+              <span class="token muted">queen</span>
+              <span class="arrow">→</span>
+              <div class="vector bright">[0.8, 0.1, 0.6]</div>
+            </div>
+            <div class="vector-row">
+              <span class="token muted">king</span>
+              <span class="arrow">→</span>
+              <div class="vector bright">[0.7, 0.2, 0.6]</div>
+            </div>
+          </div>
+          <p>
+            CBOW predicts the center word from its neighbors; Skip-gram predicts neighbors
+            from the center. Training nudges vectors so similar contexts land close together.
+          </p>
+          <div class="calc-panel">
+            <p class="calc-title">Skip-gram snapshot</p>
+            <ul>
+              <li>Window = 2, center word = “king”, context targets: [“the”, “is”, “royal”, “leader”]</li>
+              <li>Loss = −Σ log p(context | king); gradients update both “king” and target vectors.</li>
+              <li>Analogy: (king − man + woman) ≈ queen → cosine similarity check.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="nlp-card">
+          <header>
+            <p class="card-kicker">Similarity</p>
+            <h2 class="card-title">Cosine distance</h2>
+          </header>
+          <div class="mini-visual">
+            <div class="angle-demo">
+              <div class="ray bright"></div>
+              <div class="ray muted"></div>
+              <div class="angle-label">θ</div>
+            </div>
+          </div>
+          <p>
+            Measures the angle between vectors; ignores magnitude so documents of different
+            lengths remain comparable.
+          </p>
+          <div class="calc-panel">
+            <p class="calc-title">Two word vectors</p>
+            <ul>
+              <li>u = [1, 2, 0], v = [2, 1, 1]</li>
+              <li>Dot = 1·2 + 2·1 + 0·1 = <span class="bright">4</span></li>
+              <li>‖u‖ = √(1² + 2²) = √5 ≈ 2.24; ‖v‖ = √(2² + 1² + 1²) = √6 ≈ 2.45</li>
+              <li>cos θ = 4 / (2.24 × 2.45) ≈ <span class="bright">0.73</span></li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="nlp-card">
+          <header>
+            <p class="card-kicker">Sequence models</p>
+            <h2 class="card-title">RNN vs. Transformer</h2>
+          </header>
+          <div class="mini-visual">
+            <div class="rnn-chain">
+              <span class="node bright">t1</span>
+              <span class="node muted">t2</span>
+              <span class="node muted">t3</span>
+            </div>
+            <div class="attn-grid">
+              <span class="token bright">self</span>
+              <span class="token muted">↔</span>
+              <span class="token bright">all</span>
+            </div>
+          </div>
+          <p>
+            RNNs pass hidden state step by step; Transformers attend to every position at once,
+            enabling parallelism and long-range context.
+          </p>
+          <div class="calc-panel">
+            <p class="calc-title">Attention score</p>
+            <ol>
+              <li>Query q = [1, 0], Key k = [0.5, 0.5], Value v = [2, 1]</li>
+              <li>Score = q · k = 1·0.5 + 0·0.5 = <span class="bright">0.5</span></li>
+              <li>Softmax over scores → weight = exp(0.5) / Σ exp(scores)</li>
+              <li>Output = weight × v (applied per value vector)</li>
+            </ol>
+          </div>
+        </article>
+
+        <article class="nlp-card">
+          <header>
+            <p class="card-kicker">Tokenization</p>
+            <h2 class="card-title">Byte-Pair Encoding</h2>
+          </header>
+          <div class="mini-visual">
+            <div class="bpe-steps">
+              <div class="token muted">low</div>
+              <div class="token muted">est</div>
+              <div class="token bright">→</div>
+              <div class="token bright">low</div>
+              <div class="token bright">_est</div>
+            </div>
+          </div>
+          <p>
+            Iteratively merges the most frequent adjacent symbols to build a compact subword
+            vocabulary that handles rare or unseen words.
+          </p>
+          <div class="calc-panel">
+            <p class="calc-title">Quick merge trace</p>
+            <ul>
+              <li>Start pairs: “l o”, “lo w”, “w _” with counts [5, 5, 5]; highest is “lo” → merge to “lo”.</li>
+              <li>Re-count: pairs include “lo w” (5), “w _” (5), “_ e” (4) → merge “lo w” → “low”.</li>
+              <li>Tokens now: [“low”, “_est”, …]; continue until vocab budget reached.</li>
+            </ul>
+          </div>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>
