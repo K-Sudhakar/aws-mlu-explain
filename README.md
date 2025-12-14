@@ -4,6 +4,10 @@ This repository holds the code used for Amazon's [MLU-Explain](https://mlu-expla
 
 This material exists as supplementary educational material for [Machine Learning University (MLU)](https://aws.amazon.com/machine-learning/mlu/), which provides anybody, anywhere, at any time access to the same machine learning courses used to train Amazon’s own developers on machine learning.
 
+# NLP Visual Study Cards
+
+We added a one-page set of visual flashcards for common NLP concepts such as Bag-of-Words, TF–IDF, Word2Vec, cosine similarity, Transformers, and Byte-Pair Encoding. Each card mirrors the MLU-Explain look and includes small worked calculations for quick exam prep. Open [`nlp-visuals.html`](./nlp-visuals.html) to explore the new visuals.
+
 # Articles
 
 ## Linear Regression
